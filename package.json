@@ -5,8 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
-    "build":"npm install",
+    "server": "nodemon server.js --ignore 'views/'",
+    "vue": "npm run dev --prefix views",
+    "dev": "concurrently \"npm run server\" \"npm run vue\"",
+
+    "build":"npm install && npm install --prefix views && npm run build --prefix views",
+
     "start":"node server.js"
   },
   "keywords": [],

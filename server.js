@@ -34,6 +34,14 @@ app.use(bodyParser.json())
 // 7. Set entry points for the REST routes created for the different Collections.
 app.use('/api/students', studentRoutes);
 
+// Prepare for Production
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('views/dist'))
+    app.get('*', (req, res)=>{
+        res.sendFile(path.resolve(__dirname, 'views', 'dist', 'index.html'))
+    })
+}
+
 
 // 8. Configure the web server application to listen to requests.
 app.listen(PORT, ()=>{console.log(`App listening at http://localhost:${PORT}`);});
